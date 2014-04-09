@@ -12,6 +12,7 @@ cat /etc/issue
 
 # setup rally
 apt-get -y --force-yes update
+apt-get -y --force-yes install python-dev
 apt-get -y --force-yes install libpq-dev git-core python-dev libevent-dev libssl-dev python-pip
 pip install pbr
 
@@ -22,4 +23,12 @@ apt-get -y --force-yes install iperf tcpdump
 
 # clean up
 mv /etc/resolv.conf_bak /etc/resolv.conf
+
+# change sshd config
+
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+
+# add pwd for root
+
+echo ubuntu:ubuntu | chpasswd
 
